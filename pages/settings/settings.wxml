@@ -1,0 +1,38 @@
+<!--pages/settings.wxml-->
+
+
+<view class="page-section">
+	<view class="page-section-title">难度</view>
+	<radio-group bindchange="difficultChange">
+		<label class="radio">
+			<radio value="r1" checked="true" />初级
+		</label>
+		<label class="radio">
+			<radio value="r2" />中级
+		</label>
+		<label class="radio">
+			<radio value="r3" />高级
+		</label>
+		</radio-group>
+</view>
+
+<view class="section section_gap">
+	<text class="section__title">雷区宽度</text>
+	<view class="body-view">
+		<slider bindchange="widthChange" min="5" max="30" show-value />
+	</view>
+</view>
+
+<view class="section section_gap">
+	<text class="section__title">雷区高度</text>
+	<view class="body-view">
+		<slider bindchange="heightChange" min="10" max="60" show-value />
+	</view>
+</view>
+
+<view class="section section_gap">
+	<text class="section__title">埋雷数目</text>
+	<view class="body-view">
+		<slider bindchange="countChange" min="10" max="40" show-value />
+	</view>
+</view>
