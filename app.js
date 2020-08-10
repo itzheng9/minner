@@ -35,8 +35,8 @@ App({
   },
   globalData: {
     userInfo: null,
-    count_x:10,
-    count_y:20,
-    count_miner:15
+    mapHeight:10,
+    mapWidth:8,
+    minnerCnt:15
   }
 })

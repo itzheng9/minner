@@ -19,20 +19,20 @@
 <view class="section section_gap">
 	<text class="section__title">雷区宽度</text>
 	<view class="body-view">
-		<slider bindchange="widthChange" min="5" max="30" show-value />
+		<slider bindchange="widthChange" min="5" max="30" show-value value="{{mapWidth}}" />
 	</view>
 </view>
 
 <view class="section section_gap">
 	<text class="section__title">雷区高度</text>
 	<view class="body-view">
-		<slider bindchange="heightChange" min="10" max="60" show-value />
+		<slider bindchange="heightChange" min="10" max="60" show-value value="{{mapHeight}}" />
 	</view>
 </view>
 
 <view class="section section_gap">
 	<text class="section__title">埋雷数目</text>
 	<view class="body-view">
-		<slider bindchange="countChange" min="10" max="40" show-value />
+		<slider bindchange="countChange" min="10" max="99" show-value value="{{minnerCnt}}" />
 	</view>
 </view>

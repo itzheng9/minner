@@ -31,7 +31,7 @@ Page({
   },
   play:function(e){
       wx.navigateTo({
-        url: '../logs/logs',
+        url: '../main/main',
       })
   },
   settings:function(e){
