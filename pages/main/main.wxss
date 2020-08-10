@@ -1,0 +1,8 @@
+/* pages/main/main.wxss */
+button::after {
+    border-radius: 0;
+}
+ 
+button{
+    border-radius: 0;
+}

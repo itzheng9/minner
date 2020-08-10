@@ -1,0 +1,22 @@
+<!--pages/main/main.wxml-->
+<view class="mainBoard">
+	<view class="section section_gap">
+		<input value="{{minnerCnt}}"></input>
+		<text class="section__title">😄😂</text>
+		<input value="{{timeSplash}}"></input>
+	</view>
+	<view>
+		<view wx:key="this" wx:for="{{mapHeight}}" wx:for-item="i">
+			<view style="font-size:0;">
+				<view style="display:inline-block;width:{{100/mapWidth}}%;"
+                      wx:key="this" wx:for="{{mapWidth}}" wx:for-item="j">
+					<button style="float:left;" bindtap="multipleTap">
+						{{i}}{{j}}
+					</button>
+				</view>
+			</view>
+
+		</view>
+	</view>
+
+</view>
