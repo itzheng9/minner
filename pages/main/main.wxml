@@ -10,8 +10,8 @@
 			<view style="font-size:0;">
 				<view style="display:inline-block;width:{{100/mapWidth}}%;"
                       wx:key="this" wx:for="{{mapWidth}}" wx:for-item="j">
-					<button style="float:left;" bindtap="multipleTap">
-						{{i}}{{j}}
+					<button style="float:left;" bindtap="multipleTap" data-posX="{{i}}" data-posY="{{j}}">
+						{{minnerFlags[i][j]}}
 					</button>
 				</view>
 			</view>
