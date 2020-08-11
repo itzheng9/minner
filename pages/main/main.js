@@ -8,13 +8,46 @@ Page({
         mapWidth:10,
         mapHeight:15,
         minnerCnt:25,
-        minnerFlags :[]
+        minnerFlags :[0][0]
     },
 
     //初始化数据
     initMinner:function(){
 
+      //初始化雷标记数组
+      var len = this.data.mapHeight*this.data.mapWidth;
+      var minnerLeft = this.data.minnerCnt;
+      var  flags= new Array(len).fill(0);
+      
+      while (minnerLeft>0){
+        var  randPos = Math.floor( Math.random()* (len) );
+        if (flags[randPos]==0){
+          flags[randPos] =1;
+          minnerLeft--;
+        }else{
+          continue;
+        }
+        
+      }
+      //console.log(flags);
+      this.setData({minnerFlags: this.transformArray(flags,this.data.mapWidth)});
+      console.log(this.data.minnerFlags);
     },
+
+    //数组操作：1维转2维
+    transformArray:function(oneDivArray,width){
+      
+      var  len = oneDivArray.length/width;
+      var  twoDivArray=[width];
+      for(var i=0;i<len;i++){
+        twoDivArray[i] = oneDivArray.slice(i*width,(i+1)*width);
+      }
+      return twoDivArray;
+
+    },
+
+
+
 
     //标记、取消标记地雷
     markMinner:function(btn){
@@ -81,6 +114,8 @@ Page({
             mapWidth:app.globalData.mapWidth,
             minnerCnt : app.globalData.minnerCnt
         });
+
+        this.initMinner();
     },
 
     /**
