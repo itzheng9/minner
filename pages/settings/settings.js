@@ -13,13 +13,13 @@ Page({
     difficultChange:function(e){
         //将单选按钮的值 转换为 宽 高 和雷数目，赋值给全局变量 TODO
         if (e.detail.value=='r1'){
-            this.setData({mapHeight:15,mapWidth:8,minnerCnt:30});
+            this.setData({mapHeight:15,mapWidth:8,minnerCnt:45});
         }
         if (e.detail.value=='r2'){
-            this.setData({mapHeight:20,mapWidth:12,minnerCnt:50});
+            this.setData({mapHeight:20,mapWidth:12,minnerCnt:75});
         }
         if (e.detail.value=='r3'){
-            this.setData({mapHeight:25,mapWidth:15,minnerCnt:75});
+            this.setData({mapHeight:25,mapWidth:15,minnerCnt:180});
         }
 
         var app = getApp();
