@@ -98,6 +98,22 @@ Page({
     //this.setData({minnerFlags:this.data.minnerFlags});
   },
 
+  //打开空白区域时，标注数字（周围9宫格的雷数目）
+  markMinnerCnt:function(x,y){
+    var cnt =0;
+    for (var i = x > 0 ? x - 1 : 0; i <= x + 1 && i < this.data.mapHeight; i++) {
+      for (var j = y > 0 ? y - 1 : 0; j <= y+ 1 && j < this.data.mapWidth; j++) {
+        //if ( i == posX && j == posY) continue;
+        if ([1 ,2, 5, 11, 13].includes( this.data.minnerFlags[i][j] ) ) //1 2 5 11 13
+          cnt ++;
+      }
+    }
+    return cnt;
+
+  },
+
+
+  //打开联通区域
   openRange: function (posX, posY) {
     function Point(i, j) {
       this.x = i;
@@ -157,13 +173,26 @@ Page({
       this.data.minnerFlags[i][j] = targetStatus;
       this.setData({ minnerFlags: this.data.minnerFlags });
 
+      //GG判断
+      if (status == 1) {
+        this.gameOver();
+      }
+
+      //打开空白后，计数周围雷数目
+      if (status==0){
+        var  minnerCnt = this.markMinnerCnt(i,j);
+       //TOODOOOOOOOOOOOOOO
+
+
+
+
+
+      }
       //双击空白，打开周围9宫格 TODO
       if (status == 4 || status==0 && iterator) {
         this.openRange(i, j);
       }
-      if (status == 1) {
-        this.gameOver();
-      }
+      
     }
   },
 
