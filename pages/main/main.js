@@ -10,10 +10,12 @@ Page({
     minnerCnt: 25,
     minnerFlags: [0][0],   //地图数组，0：非雷未操作，1：雷未操作  
     //2：非雷标雷  3：雷标雷   4：非雷被打开  5：雷被打开
-    minnerTexts: ['&nbsp;&nbsp;&nbsp;', '&nbsp;&nbsp;&nbsp;', '🚩', '🚩', '&nbsp;&nbsp;&nbsp;', '💣', , , , , , '💣', '❌', '💣']
+    minnerTexts: ['&nbsp;&nbsp;&nbsp;', '&nbsp;&nbsp;&nbsp;', '🚩', '🚩', '&nbsp;&nbsp;&nbsp;', '💣', , , , , , '💣', '❌', '💣'],
 
     //，0：非雷未操作，1lei：雷未操作     2：非雷标雷  3：雷标雷 🚩  4：非雷被打开  5：雷被打开
     //雷未操作1，11💣       非雷标雷2，12 ❌       雷被打开5，13 😡 
+
+    minnerFlagsCnt: [0][0]  //统计周围9宫内雷数目
   },
 
 
@@ -37,7 +39,7 @@ Page({
     }
     //console.log(flags);
     this.setData({ minnerFlags: this.transformArray(flags, this.data.mapWidth) });
-    console.log(this.data.minnerFlags);
+    //console.log(this.data.minnerFlags);
   },
 
   //数组操作：1维转2维
@@ -99,13 +101,13 @@ Page({
   },
 
   //打开空白区域时，标注数字（周围9宫格的雷数目）
-  markMinnerCnt:function(x,y){
-    var cnt =0;
+  markMinnerCnt: function (x, y) {
+    var cnt = 0;
     for (var i = x > 0 ? x - 1 : 0; i <= x + 1 && i < this.data.mapHeight; i++) {
-      for (var j = y > 0 ? y - 1 : 0; j <= y+ 1 && j < this.data.mapWidth; j++) {
+      for (var j = y > 0 ? y - 1 : 0; j <= y + 1 && j < this.data.mapWidth; j++) {
         //if ( i == posX && j == posY) continue;
-        if ([1 ,2, 5, 11, 13].includes( this.data.minnerFlags[i][j] ) ) //1 2 5 11 13
-          cnt ++;
+        if ([1, 2, 5, 11, 13].includes(this.data.minnerFlags[i][j])) //1 2 5 11 13
+          cnt++;
       }
     }
     return cnt;
@@ -123,15 +125,15 @@ Page({
     var points = [];
 
     //四个方位的
-    if (posX>0)
-      points.push(new Point(posX-1, posY));
-    if (posX + 1<this.data.mapHeight )
-      points.push(new Point(posX+1, posY));
-    if (posY>0)
-      points.push(new Point(posX,posY-1));
-    if (posY +1 < this.data.mapWidth)
-      points.push(new Point(posX,posY+1));
-    
+    if (posX > 0)
+      points.push(new Point(posX - 1, posY));
+    if (posX + 1 < this.data.mapHeight)
+      points.push(new Point(posX + 1, posY));
+    if (posY > 0)
+      points.push(new Point(posX, posY - 1));
+    if (posY + 1 < this.data.mapWidth)
+      points.push(new Point(posX, posY + 1));
+
     //过滤出有效位置 八个方位的
     // for (var i = posX > 0 ? posX - 1 : 0; i <= posX + 1 && i < this.data.mapHeight; i++) {
     //   for (var j = posY > 0 ? posY - 1 : 0; j <= posY+ 1 && j < this.data.mapWidth; j++) {
@@ -140,20 +142,20 @@ Page({
     //   }
     // }
 
-    
+
     var point;
-    while ( (point= points.pop()) != undefined ){
+    while ((point = points.pop()) != undefined) {
       //仅循环是未标记状态的    已打开状态的不要处理，会死循环    
-      if (this.data.minnerFlags[point.x][point.y] >0 )continue;
+      if (this.data.minnerFlags[point.x][point.y] > 0) continue;
       //伪装btn事件数据
-      var btn ={target:{dataset:{posx:point.x,posy:point.y}}};
-      this.openMinner(btn,true);//调用openMinner 
+      var btn = { target: { dataset: { posx: point.x, posy: point.y } } };
+      this.openMinner(btn, true);//调用openMinner 
     }
 
   },
 
   //双击打开此按钮、双击打开周围9宫格区域
-  openMinner: function (btn,iterator) {
+  openMinner: function (btn, iterator) {
     //console.log(btn);
     var i = btn.target.dataset.posx;
     var j = btn.target.dataset.posy;
@@ -162,9 +164,9 @@ Page({
 
     //第二版
     var statusMap = new Map();
-    statusMap.set(0, 4);//打开非雷区，变成空白
+    statusMap.set(0, 4);//打开非雷区，变成空白*
     statusMap.set(1, 5);//打开雷区，爆炸GG
-    statusMap.set(4,4);//双击空白(已打开区域)
+    statusMap.set(4, 4);//双击空白(已打开区域)
     //statusMap.set(5,5);//
 
     var targetStatus = statusMap.get(status);
@@ -178,21 +180,14 @@ Page({
         this.gameOver();
       }
 
-      //打开空白后，计数周围雷数目
-      if (status==0){
-        var  minnerCnt = this.markMinnerCnt(i,j);
-       //TOODOOOOOOOOOOOOOO
-
-
-
-
-
-      }
       //双击空白，打开周围9宫格 TODO
-      if (status == 4 || status==0 && iterator) {
+      if (status == 4 || status == 0 && iterator) {
         this.openRange(i, j);
       }
+
       
+      
+
     }
   },
 
@@ -275,6 +270,18 @@ Page({
     });
 
     this.initMinner();
+
+    this.data.minnerFlagsCnt = [this.data.mapHeight];
+    for (var i = 0; i < this.data.mapHeight; i++)
+      this.data.minnerFlagsCnt[i] = new Array(this.data.mapWidth).fill(0);
+
+    //计数周围雷数目
+    for (var i = 0; i < this.data.mapHeight; i++)
+    for (var j = 0; j < this.data.mapWidth; j++) {
+        var minnerCnt = this.markMinnerCnt(i, j);
+        this.data.minnerFlagsCnt[i][j] = minnerCnt;
+     }
+     this.setData({minnerFlagsCnt:this.data.minnerFlagsCnt});
   },
 
   /**

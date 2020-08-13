@@ -5,7 +5,7 @@
 		<text class="section__title">😄😂</text>
 		<input value="{{timeSplash}}"></input>
 	</view>
-	<wxs module="fn">
+	<!-- <wxs module="fn">
 		module.exports = {
 			getMapValue: function(array,key,i,j) {
 				console.log(array, key,i,j);
@@ -13,13 +13,14 @@
 				return  array[key];
 			}
 		}
-	</wxs>
+	</wxs> -->
 	<view>
 		<view wx:key="this" wx:for="{{mapHeight}}" wx:for-item="i">
 			<view style="font-size:0;">
 				<view style="display:inline-block;width:{{100/mapWidth}}%;" wx:key="this" wx:for="{{mapWidth}}" wx:for-item="j">
 					<button style="float:left;{{minnerFlags[i][j]==4?'background-color:#d0ce9b;':''}}			{{minnerFlags[i][j]==5||minnerFlags[i][j]==13?'background-color:red;':'' }}" bindtap="multipleTap" data-posX="{{i}}" data-posY="{{j}}">
-						 <text  decode="{{true}}">{{ minnerTexts[minnerFlags[i][j] ]}}</text>						 
+						 
+						 <text  decode="{{true}}">{{minnerFlags[i][j] ==4&&minnerFlagsCnt[i][j] != undefined && minnerFlagsCnt[i][j]>0? minnerFlagsCnt[i][j] :minnerTexts[ minnerFlags[i][j]]   }}</text>						 
 					</button>
 				</view>
 			</view>
