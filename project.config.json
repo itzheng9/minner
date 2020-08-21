@@ -5,11 +5,11 @@
 	},
 	"setting": {
 		"urlCheck": true,
-		"es6": true,
+		"es6": false,
 		"enhance": false,
-		"postcss": true,
+		"postcss": false,
 		"preloadBackgroundData": false,
-		"minified": true,
+		"minified": false,
 		"newFeature": false,
 		"coverView": true,
 		"nodeModules": false,
@@ -33,7 +33,7 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.0.4",
-	"appid": "wxe354e55d1c2e56d6",
+	"appid": "wx924ee7442c6195a6",
 	"projectname": "IT%E9%87%8E%E7%8B%90%E7%A6%85Minner",
 	"debugOptions": {
 		"hidedInDevtools": []
