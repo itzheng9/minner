@@ -17,10 +17,12 @@
 	<view>
 		<view wx:key="this" wx:for="{{mapHeight}}" wx:for-item="i">
 			<view style="font-size:0;">
-				<view style="display:inline-block;width:{{100/mapWidth}}%;" wx:key="this" wx:for="{{mapWidth}}" wx:for-item="j"> 				
-					<button  style="float:left;{{minnerFlags[i][j]==4?'background-color:#d0ce9b;':''}}			{{minnerFlags[i][j]==5||minnerFlags[i][j]==13?'background-color:red;':'' }}" bindtap="multipleTap" data-posX="{{i}}" data-posY="{{j}}">  
-						 <text >{{minnerFlags[i][j] ==4&&minnerFlagsCnt[i][j] != undefined && minnerFlagsCnt[i][j]>0? minnerFlagsCnt[i][j] : minnerFlags[i][j]   }}</text>
-						 <!-- <text  decode="{{true}}">{{minnerFlags[i][j] ==4&&minnerFlagsCnt[i][j] != undefined && minnerFlagsCnt[i][j]>0? minnerFlagsCnt[i][j] :minnerTexts[ minnerFlags[i][j]]   }}</text>						  -->
+				<view style="border:1px inset gray;display:inline-block;width:{{100/mapWidth-1}}vw;" 
+				     wx:key="this" wx:for="{{mapWidth}}" wx:for-item="j"> 				
+					<button  style="padding-left:0rpx;padding-right:0rpx;width:auto;border-radius:0;{{minnerFlags[i][j]==4?'background-color:#d0ce9b;':''}}			{{minnerFlags[i][j]==5||minnerFlags[i][j]==13?'background-color:red;':'' }}" 
+					         bindtap="multipleTap" data-posx="{{i}}" data-posy="{{j}}">  
+						 <!-- <text >{{minnerFlags[i][j] ==4&&minnerFlagsCnt[i][j] != undefined && minnerFlagsCnt[i][j]>0? minnerFlagsCnt[i][j] : minnerFlags[i][j]   }}</text> -->
+						 <text  decode="{{true}}">{{minnerFlags[i][j] ==4&&minnerFlagsCnt[i][j] != undefined && minnerFlagsCnt[i][j]>0? minnerFlagsCnt[i][j] :minnerTexts[ minnerFlags[i][j]]   }}</text>						 
 					</button>
 				</view>
 			</view>

@@ -56,7 +56,7 @@ Page({
 
   //标记、取消标记地雷
   markMinner: function (btn) {
-    //console.log(btn);
+    console.log(btn);
     var i = btn.target.dataset.posx;
     var j = btn.target.dataset.posy;
     var status = this.data.minnerFlags[i][j];
@@ -156,7 +156,7 @@ Page({
 
   //双击打开此按钮、双击打开周围9宫格区域
   openMinner: function (btn, iterator) {
-    //console.log(btn);
+    console.log(btn);
     var i = btn.target.dataset.posx;
     var j = btn.target.dataset.posy;
     var status = this.data.minnerFlags[i][j];
@@ -264,9 +264,9 @@ Page({
     //this.setData({mapWidth:10,mapHeight:15});
     var app = getApp();
     this.setData({
-      mapHeight: app.globalData.mapHeight,
       mapWidth: app.globalData.mapWidth,
-      minnerCnt: app.globalData.minnerCnt
+      mapHeight: app.globalData.mapHeight,      
+      minnerCnt:  app.globalData.minnerCnt
     });
 
     this.initMinner();
