@@ -5,15 +5,7 @@
 		<text class="section__title">😄😂</text>
 		<input value="{{timeSplash}}"></input>
 	</view>
-	<!-- <wxs module="fn">
-		module.exports = {
-			getMapValue: function(array,key,i,j) {
-				console.log(array, key,i,j);
-				
-				return  array[key];
-			}
-		}
-	</wxs> -->
+	 
 	<view>
 		<view wx:key="this" wx:for="{{mapHeight}}" wx:for-item="i">
 			<view style="font-size:0;">

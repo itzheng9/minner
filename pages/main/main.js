@@ -8,6 +8,7 @@ Page({
     mapWidth: 10,
     mapHeight: 15,
     minnerCnt: 25,
+
     minnerFlags: [0][0],   //地图数组，0：非雷未操作，1：雷未操作  
     //2：非雷标雷  3：雷标雷   4：非雷被打开  5：雷被打开
     minnerTexts: ['&nbsp;&nbsp;&nbsp;', '&nbsp;&nbsp;&nbsp;', '🚩', '🚩', '&nbsp;&nbsp;&nbsp;', '💣', , , , , , '💣', '❌', '💣'],
@@ -62,7 +63,7 @@ Page({
     var status = this.data.minnerFlags[i][j];
 
     //第二版
-    var statusMap = new Map();
+    var statusMap = new Map();//()
     statusMap.set(0, 2);
     statusMap.set(1, 3);
     statusMap.set(2, 0);
@@ -106,7 +107,7 @@ Page({
     for (var i = x > 0 ? x - 1 : 0; i <= x + 1 && i < this.data.mapHeight; i++) {
       for (var j = y > 0 ? y - 1 : 0; j <= y + 1 && j < this.data.mapWidth; j++) {
         //if ( i == posX && j == posY) continue;
-        if ([1, 2, 5, 11, 13].includes(this.data.minnerFlags[i][j])) //1 2 5 11 13
+        if ([1, 3, 5, 11, 13].includes(this.data.minnerFlags[i][j])) //1 2 5 11 13
           cnt++;
       }
     }
@@ -146,10 +147,12 @@ Page({
     var point;
     while ((point = points.pop()) != undefined) {
       //仅循环是未标记状态的    已打开状态的不要处理，会死循环    
-      if (this.data.minnerFlags[point.x][point.y] > 0) continue;
+      if (this.data.minnerFlags[point.x][point.y] > 0 ) 
+          continue;
+                
       //伪装btn事件数据
       var btn = { target: { dataset: { posx: point.x, posy: point.y } } };
-      this.openMinner(btn, true);//调用openMinner 
+      this.openMinner(btn, !(this.data.minnerFlagsCnt[point.x][point.y] >0 ));//调用openMinner 
     }
 
   },
